@@ -2,8 +2,11 @@
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [project]
-name = "UPR-AI"
+name = "upr_ai"
 version = "1.0.0"
 description = "ML project for predicting student grade in a specific course"
 requires-python = ">=3.12"
