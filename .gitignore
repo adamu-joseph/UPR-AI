@@ -36,6 +36,10 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Data
+data/raw/*
+data/processed/*
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -74,6 +78,10 @@ docs/_build/
 # PyBuilder
 .pybuilder/
 target/
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -147,6 +155,9 @@ activemq-data/
 # SageMath parsed files
 *.sage.py
 
+# Conda
+.conda/
+
 # Environments
 .env
 .envrc
@@ -156,6 +167,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Models
+models/*.pkl
+models/*.joblib
 
 # Spyder project settings
 .spyderproject
@@ -205,6 +220,12 @@ tempCodeRunnerFile.py
 
 # Ruff stuff:
 .ruff_cache/
+
+# Mypy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/
 
 # PyPI configuration file
 .pypirc
