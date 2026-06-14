@@ -1,11 +1,10 @@
-from inspect import trace
+import json
 import logging
 import logging.config
-import traceback
-import json
 import time
+import traceback
+from datetime import UTC, datetime, timedelta
 from functools import wraps
-from datetime import datetime, timezone, timedelta
 
 from upr_ai.utils.config import ConfigManger
 
@@ -27,9 +26,7 @@ class JSONFormatter(logging.Formatter):
         """
 
         if timestamp is None:
-            timestamp = datetime.now(timezone.utc) + timedelta(
-                hours=1
-            )  # Convert to UTC+1
+            timestamp = datetime.now(UTC) + timedelta(hours=1)  # Convert to UTC+1
 
         log_record = {
             "timestamp": timestamp.isoformat(),

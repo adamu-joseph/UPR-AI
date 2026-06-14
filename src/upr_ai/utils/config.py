@@ -1,9 +1,6 @@
-import sys
+
 
 import yaml
-from typing import Dict
-
-from upr_ai.utils.Exception import CustomException
 
 
 class ConfigManger:
@@ -22,7 +19,7 @@ class ConfigManger:
         self.config_path = config_path
         self.config = self.load_config()
 
-    def load_config(self) -> Dict:
+    def load_config(self) -> dict:
         """function to load the configuration
 
         Returns:
@@ -30,14 +27,14 @@ class ConfigManger:
         """
 
         try:
-            with open(self.config_path, "r", encoding="utf-8") as file:
+            with open(self.config_path, encoding="utf-8") as file:
                 return yaml.safe_load(file)
         except TypeError:
             raise TypeError("Config Path should be a string")
         except FileNotFoundError:
             raise FileNotFoundError(f"NO file named {self.config_path} was found")
 
-    def get_config(self) -> Dict:
+    def get_config(self) -> dict:
         """_summary_
 
         Returns:

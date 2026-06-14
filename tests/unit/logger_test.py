@@ -1,6 +1,8 @@
-from upr_ai.utils.logger import Logger
 import time
+
 import pytest
+
+from upr_ai.utils.logger import Logger
 
 
 @pytest.fixture
