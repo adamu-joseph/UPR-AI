@@ -6,6 +6,12 @@ student-performance-indicator/
 │   └── workflows/
 │       └── ci.yml
 │
+├── artifacts/
+│   ├── logs/
+|
+├── config/
+│   ├── logging_config.yaml/
+|
 ├── data/
 │   ├── raw/
 │   └── processed/
@@ -34,4 +40,3 @@ student-performance-indicator/
 ├── README.md
 ├── LICENSE
 └── .gitignore
-.gitignore
