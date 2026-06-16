@@ -1,9 +1,8 @@
-
-
 import yaml
+from upr_ai.utils.Exception import UPRException
 
 
-class ConfigManger:
+class ConfigManager:
     """Loads the configuration"""
 
     def __init__(self, config_path: str):
@@ -29,10 +28,12 @@ class ConfigManger:
         try:
             with open(self.config_path, encoding="utf-8") as file:
                 return yaml.safe_load(file)
-        except TypeError:
-            raise TypeError("Config Path should be a string")
-        except FileNotFoundError:
-            raise FileNotFoundError(f"NO file named {self.config_path} was found")
+        except TypeError as e:
+            raise UPRException("Config Path should be a string", original_exception=e)
+        except FileNotFoundError as e:
+            raise UPRException(
+                f"NO file named {self.config_path} was found", original_exception=e
+            )
 
     def get_config(self) -> dict:
         """_summary_
