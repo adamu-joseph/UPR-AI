@@ -15,3 +15,5 @@ how to build/install your project
 
 Linting = checking your code for problems without running it:
     with ruff, mypy, black
+
+Added Pre-commit to run checks before pushing to github
