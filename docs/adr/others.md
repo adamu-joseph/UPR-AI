@@ -1,8 +1,12 @@
-added pyproject.py
+# Features Added
+
+## Pyproject.toml
+
+added pyproject.toml
 
 It tells Python tools:
 
-what your project is
+what the project is
 what dependencies it needs
 how to format code
 how to lint code

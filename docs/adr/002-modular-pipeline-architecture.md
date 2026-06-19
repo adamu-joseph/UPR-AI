@@ -1,10 +1,8 @@
-## ADR 002: Modular Pipeline Architecture
+# ADR 002: Modular Pipeline Architecture
 
-### Status
+Status: Accepted
 
-Accepted
-
-### Context
+## Context
 
 The system needs to handle complex ML workflows with multiple stages: data loading, preprocessing, training, evaluation, and inference. We need an architecture that supports:
 
@@ -14,7 +12,7 @@ The system needs to handle complex ML workflows with multiple stages: data loadi
 - Clear separation of concerns
 - Data leakage prevention
 
-### Decision
+## Decision
 
 We will implement a modular pipeline architecture with the following components:
 
@@ -30,9 +28,9 @@ Each pipeline stage will be:
 - Logged with structured logging
 - Error-handled with custom exceptions
 
-### Consequences
+## Consequences
 
-#### Positive
+### Positive
 
 - Clear separation of concerns
 - Easy to test individual components
@@ -40,19 +38,19 @@ Each pipeline stage will be:
 - Easy to extend with new algorithms or preprocessing steps
 - Prevents data leakage through sklearn Pipeline usage
 
-#### Negative
+### Negative
 
 - Higher initial development complexity
 - More files and classes to maintain
 - Potential overhead from inter-component communication
 
-#### Risks
+### Risks
 
 - Tight coupling between pipeline stages
 - Configuration complexity
 - Performance overhead from modularity
 
-### Alternatives Considered
+## Alternatives Considered
 
 - **Monolithic script**: Simple but hard to test and maintain
 - **Configuration-driven pipeline**: Less flexible for complex logic

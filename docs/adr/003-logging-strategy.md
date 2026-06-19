@@ -1,10 +1,8 @@
 # ADR 006: Logging Strategy
 
-### Status
+Status: Accepted
 
-Accepted
-
-### Context
+## Context
 
 The system needs comprehensive logging for debugging, monitoring, and auditing. Requirements include:
 
@@ -14,7 +12,7 @@ The system needs comprehensive logging for debugging, monitoring, and auditing. 
 - Performance monitoring through timing
 - Security event logging through ERROR and Critical levels
 
-### Decision
+## Decision
 
 We will implement a structured logging strategy using Python's logging module:
 
@@ -35,9 +33,9 @@ The `Logger` class will provide:
 - Performance timing decorators
 - Structured log formatting
 
-### Consequences
+## Consequences
 
-#### Positive
+### Positive
 
 - Structured logs for better analysis
 - Configurable verbosity levels
@@ -45,19 +43,19 @@ The `Logger` class will provide:
 - Easy integration with log aggregation systems
 - Security and audit trail support
 
-#### Negative
+### Negative
 
 - Log parsing complexity
 - Storage and retention management
 - Performance impact of verbose logging
 
-#### Risks
+### Risks
 
 - Log injection attacks
 - Sensitive data leakage in logs
 - Log storage costs
 
-### Alternatives Considered
+## Alternatives Considered
 
 - **Print statements**: No structure, hard to manage
 - **External logging services**: Dependency on external systems

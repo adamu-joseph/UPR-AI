@@ -30,11 +30,10 @@ student-performance-indicator/
 |       ├── features/
 |       ├── models/
 |       └── evaluation/
-│
+│       └── utils/
 ├── tests/
 │   └── sample_data/
 │
-├── requirements.txt
 ├── environment.yml
 ├── pyproject.toml
 ├── README.md

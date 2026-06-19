@@ -1,5 +1,7 @@
 # 000 Tech Stack
 
+Status: Accepted 
+
 ## Context & Decision
 
 We have standardized the core project environment on Python 3.12 managed via Conda. The ecosystem has been selected to establish a robust foundation for machine learning development, code quality, security, and testing. Every core package is version-locked to guarantee environment reproducibility across all development and production nodes.

@@ -1,12 +1,13 @@
 import yaml
+from typing import Dict
 
-from upr_ai.utils.Exception import UPRException
+from upr_ai.utils.Exception import FileError, UnknownError
 
 
 class ConfigManager:
     """Loads the configuration"""
 
-    def __init__(self, config_path: str):
+    def __init__(self, config_path: str) -> None:
         """Load config_path and config
 
         Args:
@@ -19,7 +20,7 @@ class ConfigManager:
         self.config_path = config_path
         self.config = self.load_config()
 
-    def load_config(self) -> dict:
+    def load_config(self) -> Dict:
         """function to load the configuration
 
         Returns:
@@ -27,20 +28,20 @@ class ConfigManager:
         """
 
         try:
-            with open(self.config_path, encoding="utf-8") as file:
+            with open(self.config_path, "r", encoding="utf-8") as file:
                 return yaml.safe_load(file)
-        except TypeError as e:
-            raise UPRException(
-                "Config Path should be a string", original_exception=e
-            ) from e
-        except FileNotFoundError as e:
-            raise UPRException(
-                f"NO file named {self.config_path} was found", original_exception=e
-            ) from e
+
+        except TypeError as exc:
+            raise FileError("File Error", original_exception=exc) from exc
+
+        except FileNotFoundError as exc:
+            raise FileError("File Error", original_exception=exc) from exc
+
         except yaml.YAMLError as e:
-            raise UPRException(
-                f"Error parsing YAML file at {self.config_path}", original_exception=e
-            ) from e
+            raise FileError("File Error", original_exception=e) from e
+
+        except Exception as exc:
+            raise UnknownError("Unknown Error", original_exception=exc) from exc
 
     def get_config(self) -> dict:
         """_summary_

@@ -1,12 +1,12 @@
 # Developer Guide
 
-## clone repo 
+## clone repo
 
-git clone <repo-name>
+git clone [repo-name]
 
 ## enter repo folder
 
-cd <repo-name>
+cd [repo-name]
 
 ## Create conda environment
 

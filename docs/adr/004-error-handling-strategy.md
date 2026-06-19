@@ -1,10 +1,8 @@
 # ADR 005: Error Handling Strategy
 
-### Status
+Status: Accepted
 
-Accepted
-
-### Context
+## Context
 
 The system needs robust error handling for production reliability. Requirements include:
 
@@ -14,7 +12,7 @@ The system needs robust error handling for production reliability. Requirements 
 - Logging and monitoring integration
 - Graceful degradation
 
-### Decision
+## Decision
 
 We will implement a hierarchical error handling strategy:
 
@@ -38,9 +36,9 @@ We will implement a hierarchical error handling strategy:
    - Critical errors cause pipeline failure
    - Non-critical errors are logged and handled
 
-### Consequences
+## Consequences
 
-#### Positive
+### Positive
 
 - Clear error classification and handling
 - Better debugging with contextual information
@@ -48,19 +46,19 @@ We will implement a hierarchical error handling strategy:
 - User-friendly error reporting
 - Monitoring and alerting integration
 
-#### Negative
+### Negative
 
 - Exception hierarchy maintenance
 - Error handling code verbosity
 - Potential over-catching of exceptions
 
-#### Risks
+## Risks
 
 - Masking underlying issues
 - Inconsistent error handling
 - Performance impact of exception handling
 
-### Alternatives Considered
+## Alternatives Considered
 
 - **Return error codes**: Less Pythonic, harder to enforce
 - **Global error handler**: Too generic, loses context
