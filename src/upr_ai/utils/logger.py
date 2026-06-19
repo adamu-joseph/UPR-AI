@@ -179,7 +179,7 @@ class Logger:
         Args:
             msg (str): log message
 
-            exc_info (BaseException): 
+            exc_info (BaseException):
                 Pass python base exception to get the exception to log file
         """
         log_context = {**self.context}
@@ -193,7 +193,7 @@ class Logger:
         Args:
             msg (str): log message
 
-            exc_info (BaseException): 
+            exc_info (BaseException):
                 Pass python base exception to get the exception to log file
         """
 
