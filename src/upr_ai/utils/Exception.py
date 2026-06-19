@@ -1,5 +1,4 @@
 import traceback
-from typing import Optional
 
 
 class UPRException(Exception):
@@ -7,7 +6,7 @@ class UPRException(Exception):
     Base exception for the application.
     """
 
-    def __init__(self, msg: Optional[str] = None, original_exception=None):
+    def __init__(self, msg: str | None = None, original_exception=None):
         if not isinstance(msg, str):
             msg = str(msg)
 
