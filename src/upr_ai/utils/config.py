@@ -1,4 +1,5 @@
 import yaml
+from typing import Any
 
 from upr_ai.utils.Exception import FileError, UnknownError
 
@@ -19,7 +20,7 @@ class ConfigManager:
         self.config_path = config_path
         self.config = self.load_config()
 
-    def load_config(self) -> dict:
+    def load_config(self) -> dict[str, Any]:
         """function to load the configuration
 
         Returns:
@@ -28,7 +29,14 @@ class ConfigManager:
 
         try:
             with open(self.config_path, encoding="utf-8") as file:
-                return yaml.safe_load(file)
+                data = yaml.safe_load(file)
+
+            if not isinstance(data, dict):
+                raise FileError(
+                    "File Error: Configuration file must contain a dictionary"
+                )
+
+            return data
 
         except TypeError as exc:
             raise FileError("File Error", original_exception=exc) from exc

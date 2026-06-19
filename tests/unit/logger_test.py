@@ -19,7 +19,7 @@ def msg():
     return "none"
 
 
-def test_logging_levels(log, msg) -> bool:
+def test_logging_levels(log, msg):
     log.info(msg)
     try:
         raise ZeroDivisionError("This is an error")
@@ -32,7 +32,7 @@ def test_logging_levels(log, msg) -> bool:
         log.critical("Critical error occurred", exc=exc)
 
 
-def test_timing(log, msg) -> bool:
+def test_timing(log, msg):
     @log.time_operation("db query")
     def demo_db():
         time.sleep(0.2)
