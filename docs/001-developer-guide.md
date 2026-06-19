@@ -19,3 +19,13 @@ conda activate spi
 ## install dependencies and package
 
 pip install -e ".[dev]"
+
+## install pre-commit hooks
+
+### Execute pre-commit before commit
+
+pre-commit install 
+
+### Execute pre-commit before push
+
+pre-commit install --hook-type pre-push

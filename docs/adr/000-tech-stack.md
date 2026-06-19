@@ -29,6 +29,7 @@ We have standardized the core project environment on Python 3.12 managed via Con
 * **pytest == 8.4.1**: The automated testing framework. It handles unit, integration, and functional test execution using simple syntax, fixtures, and powerful test-parametrization capabilities.
 * **pytest-cov == 6.2.1**: A testing coverage extension plugin. It tracks and reports code coverage metrics during test execution to ensure newly added features are strictly verified.
 * **mypy == 1.17.1**: The static type checker. It verifies optional Python type hints before runtime to eliminate data type errors and clarify variable schemas in data pipelines. Checks if your types make sense before running code
+* **Pre-commit == 4.6.0**: This acts like an automated security guard for code repository. It intercepts code right before it is officially saved into Git history (the git commit step), checks it for errors, and blocks the commit if it finds any issues.
 
 #### 🧼 Code Quality & Formatting
 
