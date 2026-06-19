@@ -22,7 +22,7 @@ def msg():
 def test_logging_levels(log, msg) -> bool:
     log.info(msg)
     try:
-        1 / 0
+        raise ZeroDivisionError("This is an error")
     except ZeroDivisionError as exc:
         log.error("An error occurred", exc=exc)
     log.warning("Credential logging")

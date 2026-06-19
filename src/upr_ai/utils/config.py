@@ -1,5 +1,5 @@
+
 import yaml
-from typing import Dict
 
 from upr_ai.utils.Exception import FileError, UnknownError
 
@@ -20,7 +20,7 @@ class ConfigManager:
         self.config_path = config_path
         self.config = self.load_config()
 
-    def load_config(self) -> Dict:
+    def load_config(self) -> dict:
         """function to load the configuration
 
         Returns:
@@ -28,7 +28,7 @@ class ConfigManager:
         """
 
         try:
-            with open(self.config_path, "r", encoding="utf-8") as file:
+            with open(self.config_path, encoding="utf-8") as file:
                 return yaml.safe_load(file)
 
         except TypeError as exc:

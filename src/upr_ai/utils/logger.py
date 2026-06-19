@@ -5,7 +5,7 @@ import time
 import traceback
 from datetime import UTC, datetime, timedelta
 from functools import wraps
-from typing import Optional, Tuple
+
 import yaml
 
 from upr_ai.utils.config import ConfigManager
@@ -84,11 +84,11 @@ class Logger:
 
         self.logging_state = True  # True if logging is working else False
 
-        self.name: Optional[str] = name
-        self.user_id: Optional[str] = user_id
-        self.request_id: Optional[str] = request_id
+        self.name: str | None = name
+        self.user_id: str | None = user_id
+        self.request_id: str | None = request_id
 
-        self.exception_info: Optional[Tuple] = (None, None, None)
+        self.exception_info: tuple | None = (None, None, None)
 
         # Convert args to string
         if not isinstance(self.name, str):
@@ -148,7 +148,7 @@ class Logger:
             self.logger.log(level, msg, extra=extra)
         self._reset_context()
 
-    def info(self, msg: Optional[str]):
+    def info(self, msg: str | None):
         """Logs at INFO level
 
         Args:
@@ -164,7 +164,8 @@ class Logger:
         Args:
             msg (str): log message
 
-            exc_info (BaseException): Pass python base exception to get the exception to log file
+            exc_info (BaseException):
+                Pass python base exception to get the exception to log file
         """
 
         log_context = {**self.context}
@@ -178,7 +179,8 @@ class Logger:
         Args:
             msg (str): log message
 
-            exc_info (BaseException): Pass python base exception to get the exception to log file
+            exc_info (BaseException): 
+                Pass python base exception to get the exception to log file
         """
         log_context = {**self.context}
         log_context["exc"] = exc
@@ -191,7 +193,8 @@ class Logger:
         Args:
             msg (str): log message
 
-            exc_info (BaseException): Pass python base exception to get the exception to log file
+            exc_info (BaseException): 
+                Pass python base exception to get the exception to log file
         """
 
         log_context = {**self.context}
@@ -237,7 +240,7 @@ class Logger:
 
         try:
             default_paths = "config/default_paths.yaml"
-            with open(default_paths, "r", encoding="utf-8") as file:
+            with open(default_paths, encoding="utf-8") as file:
 
                 logging_config_path = yaml.safe_load(file)["logging"]
 
@@ -316,7 +319,7 @@ class Logger:
         Writes logs in JSON format using JSONFormatter.
         """
 
-        if not self.logging_state is False:
+        if self.logging_state is not False:
             self.warning("False logging error raised")
             return
 

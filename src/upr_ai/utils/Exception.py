@@ -1,5 +1,4 @@
 import traceback
-from typing import Optional
 
 
 class UPRException(Exception):
@@ -30,12 +29,13 @@ class UPRException(Exception):
 
                 self.file = frame.filename if frame else None
                 self.line_no = frame.lineno if frame else None
-                self.exception_type: Optional[str] = type(original_exception).__name__
-                self.exception_message: Optional[str] = str(original_exception)
+                self.exception_type: str | None = type(original_exception).__name__
+                self.exception_message: str | None = str(original_exception)
 
             except Exception:
                 print(
-                    "You passed in a wrong exception. Original exception must be python's exception class"
+                    "You passed in a wrong exception. "
+                    "Original exception must be python's exception class"
                 )
 
         else:
