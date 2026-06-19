@@ -31,7 +31,8 @@ repos:
 
       - id: pip-audit
         name: pip-audit
-        entry: pip-audit --skip-editable
+        entry: pip-audit
+        args: ["--skip-editable"]
         language: system
         pass_filenames: false
         stages: [pre-push]
