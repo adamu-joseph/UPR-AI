@@ -5,11 +5,7 @@ import time
 import traceback
 from datetime import UTC, datetime, timedelta
 from functools import wraps
-
-import yaml
-
-from upr_ai.utils.config import ConfigManager
-from upr_ai.utils.Exception import FileError, UnknownError
+from typing import Any
 
 
 class JSONFormatter(logging.Formatter):
@@ -80,40 +76,33 @@ class Logger:
     Centralized structured logging system.
     """
 
-    def __init__(self, request_id: str, user_id: str, name: str):
-
-        self.logging_state = True  # True if logging is working else False
-
+    def __init__(
+        self,
+        request_id: str,
+        user_id: str,
+        name: str,
+        config: dict[Any, Any],
+        fall_back_log_file: str,
+    ):
         self.name: str | None = name
         self.user_id: str | None = user_id
         self.request_id: str | None = request_id
+        self.config = config
+        self.fall_back_log_file = fall_back_log_file
 
         self.exception_info: tuple | None = (None, None, None)
-
-        # Convert args to string
-        if not isinstance(self.name, str):
-            self.name = str(self.name)
-        if not isinstance(self.user_id, str):
-            self.user_id = str(self.user_id)
-        if not isinstance(self.request_id, str):
-            self.request_id = str(self.request_id)
-
-        # Fallback
-        if not self.name or self.name.lower() == "none":
-            self.name = __name__
-        if not self.request_id or self.request_id.lower() == "none":
-            self.request_id = None
-        if not self.user_id or self.user_id.lower() == "none":
-            self.user_id = None
-
+        self.logging_state = True  # True if logging is working else False
         self.context = {"request_id": self.request_id, "user_id": self.user_id}
         self.fixed_context = self.context.copy()  # For getting the original context
+        self.fixed_exception = self.exception_info[:]
 
         self.logger = self._initialize_logger()
 
     def _reset_context(self):
         """Resets the logging context to the initial state."""
         self.context = self.fixed_context.copy()
+        if not self.exception_info == self.fixed_exception:
+            self.exception_info = self.fixed_exception[:]
 
     def _log(self, level, msg, **kwargs):
         """Creates log object
@@ -124,17 +113,18 @@ class Logger:
 
         extra = kwargs.get("extra", {})
 
-        exc = extra.get("exc", None)
-
-        if isinstance(exc, BaseException):
-            self.exception_info = (
-                type(exc),
-                exc,
-                exc.__traceback__,
-            )
-
         if self.logging_state is False:
+            exc = extra.get("exc", None)
+
+            if isinstance(exc, BaseException):
+                self.exception_info = (
+                    type(exc),
+                    exc,
+                    exc.__traceback__,
+                )
+
             self.logging_error(level, msg)
+            self._reset_context()
             return
 
         msg = self.edit_message(msg)
@@ -239,53 +229,7 @@ class Logger:
         my_logger = logging.getLogger(self.name)
 
         try:
-            default_paths = "config/default_paths.yaml"
-            with open(default_paths, encoding="utf-8") as file:
-
-                logging_config_path = yaml.safe_load(file)["logging"]
-
-        except FileNotFoundError as exc:
-            self.logging_state = False
-            self.error("Logging configuration file not found", exc=exc)
-            return
-
-        except TypeError as exc:
-            self.logging_state = False
-            self.error("Logging configuration is invalid", exc=exc)
-            return
-
-        except Exception as exc:
-            self.logging_state = False
-            self.error(
-                "An unexpected error occurred while initializing logging", exc=exc
-            )
-            return
-
-        try:
-            config = ConfigManager(logging_config_path).get_config()
-
-        except FileError as exc:
-            self.logging_state = False
-            self.error(
-                "An unexpected error occurred while initializing logging", exc=exc
-            )
-
-        except UnknownError as exc:
-            self.logging_state = False
-            self.error(
-                "An unexpected error occurred while initializing logging", exc=exc
-            )
-            return
-
-        except Exception as exc:
-            self.logging_state = False
-            self.error(
-                "An unexpected error occurred while initializing logging", exc=exc
-            )
-            return
-
-        try:
-            logging.config.dictConfig(config)
+            logging.config.dictConfig(self.config)
 
         except Exception as exc:
             self.logging_state = False
@@ -325,13 +269,15 @@ class Logger:
 
         fallback_logger = logging.getLogger(self.name)
         fallback_logger.setLevel(logging.INFO)
-        log_file = "artifacts/logs/fallback_logs.json"
 
         # Prevent duplicate handlers if called multiple times
         try:
             if not fallback_logger.handlers:
                 handler = logging.handlers.RotatingFileHandler(
-                    log_file, maxBytes=10485760, backupCount=5, encoding="utf-8"
+                    self.fall_back_log_file,
+                    maxBytes=10485760,
+                    backupCount=5,
+                    encoding="utf-8",
                 )
 
                 handler.setFormatter(JSONFormatter())
@@ -344,5 +290,6 @@ class Logger:
                 extra=self.context,
                 exc_info=self.exception_info,
             )
+
         except Exception as e:
-            print("Error occured while initializing fallback logger", e)
+            raise Exception(e) from e

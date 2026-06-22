@@ -1,15 +1,16 @@
 # UPR-AI
+
 AI system for UPR
 
 ## Project Summary
 
-Project: Student Performance Indicator
+Project: UPR
 
 Problem Type: Regression
 
 Target Variable: final_grade
 
-## Tech Stack:
+## Tech Stack
 
 Python 3.12
 scikit-learn
@@ -26,7 +27,7 @@ Dataset Source:
 
 <kaggle.dataset>
 
-## CI Purpose:
+## CI Purpose
 
 Lint code
 Check formatting
@@ -34,9 +35,3 @@ Run type checking
 Run security checks
 Scan dependencies
 Run tests
-
-Keep these out of Git:
-
-# Python
-__pycache__/
-*.pyc
