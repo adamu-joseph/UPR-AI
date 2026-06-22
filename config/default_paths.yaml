@@ -1,3 +1,6 @@
 version: 1
 
-logging: "config/logging_config.yaml"
+logging_file: "config/logging_config.yaml"
+fall_back_logging_file: "artifacts/logs/fallback_logs.json"
+models: "config/models.yaml"
+data: "config/data.yaml"

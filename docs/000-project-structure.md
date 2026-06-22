@@ -8,6 +8,7 @@ student-performance-indicator/
 │
 ├── artifacts/
 │   ├── logs/
+|   └── models/
 |
 ├── config/
 │   ├── logging_config.yaml/
@@ -17,7 +18,6 @@ student-performance-indicator/
 │   └── processed/
 │
 |── docs/
-├── models/
 │
 ├── notebooks/
 │
@@ -26,11 +26,9 @@ student-performance-indicator/
 │
 ├── src/
 |  |- upr/
-|       ├── data/
-|       ├── features/
-|       ├── models/
-|       └── evaluation/
 │       └── utils/
+|       └── data_loader.py/
+|
 ├── tests/
 │   └── sample_data/
 │

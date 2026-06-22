@@ -67,3 +67,11 @@ class FileError(UPRException):
 
 class UnknownError(UPRException):
     """Raised when there is an unexpected and unknown errror"""
+
+
+class DataValidationError(UPRException):
+    """Raised when loaded data fails validation."""
+
+
+class DataReadError(UPRException):
+    """Raised when there is an error reading the data."""
